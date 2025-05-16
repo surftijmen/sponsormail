@@ -3,40 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Sponsor Email Generator</title>
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        textarea { width: 100%; height: 400px; margin-top: 20px; }
+    </style>
 </head>
 <body>
     <h1>Generate Sponsor Outreach Email</h1>
     <label>Brand Name:</label><br>
-    <input id="brand" type="text" /><br><br>
+    <input id="brand" type="text"><br><br>
+
     <label>Contact Person (optional):</label><br>
-    <input id="contact" type="text" /><br><br>
-    <button id="generate-button" py-click="generate_email">Generate Email</button>
+    <input id="contact" type="text"><br><br>
+
+    <button onclick="generateEmail()">Generate Email</button>
 
     <h2>Generated Email</h2>
-    <pre id="output"></pre>
+    <textarea id="output" readonly></textarea>
 
-    <py-script>
-from js import document
-
-template = """
+    <script>
+        const template = `
 Subject: Collaboration Opportunity with Sterre Meijer (@surfsterre) and {brand_name}
 
 Hi {contact_person},
 
-My name is Tijmen Meijer, and I’m reaching out on behalf of Sterre Meijer (known as @surfsterre on social media)... (shortened for clarity)
+My name is Tijmen Meijer, and I’m reaching out on behalf of Sterre Meijer (known as @surfsterre on social media). Sterre is a 20-year-old Dutch skateboarder, model, and social media creator with an audience of over 4 million followers across Instagram, TikTok, YouTube, and Snapchat...
+
 Kind regards,
 Tijmen Meijer
 Manager for Sterre Meijer (@surfsterre)
 collab@surfsterre.com
-"""
+`;
 
-def generate_email(*args, **kwargs):
-    brand = document.getElementById("brand").value
-    contact = document.getElementById("contact").value or brand
-    email_text = template.format(brand_name=brand, contact_person=contact)
-    document.getElementById("output").innerText = email_text
-    </py-script>
+        function generateEmail() {
+            const brand = document.getElementById('brand').value.trim();
+            let contact = document.getElementById('contact').value.trim();
+            if (!brand) {
+                alert('Please enter a brand name.');
+                return;
+            }
+            if (!contact) contact = brand;
+            const email = template
+                .replaceAll('{brand_name}', brand)
+                .replaceAll('{contact_person}', contact);
+            document.getElementById('output').value = email;
+        }
+    </script>
 </body>
 </html>

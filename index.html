@@ -32,7 +32,7 @@
         let selectedTemplate = '';
 
         function loadTemplate(type) {
-            const repoURL = 'https://raw.githubusercontent.com/<your-username>/<your-repo>/main/templates/' + type + '.txt';
+            const repoURL = 'https://raw.githubusercontent.com/surftijmen/sponsormail/main/templates/' + type + '.txt';
             fetch(repoURL)
                 .then(response => response.text())
                 .then(text => {

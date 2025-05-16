@@ -54,8 +54,8 @@ collab@surfsterre.com
             }
             if (!contact) contact = brand;
             const email = template
-                .replaceAll('{brand_name}', brand)
-                .replaceAll('{contact_person}', contact);
+                .replaceAll('[Brand Name]', brand)
+                .replaceAll('[Contact Person Name]', contact);
             document.getElementById('output').value = email;
         }
 
